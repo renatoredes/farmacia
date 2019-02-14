@@ -1,0 +1,54 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Novo produto</ui:define>
+
+	<ui:define name="corpo">
+
+		<h1>Detalhamento da Venda</h1>
+
+		<h:body>
+			<p:growl id="mensagem" />
+
+			<h:form id="formListagem">
+				<p:panel header="Produtos - Listagem">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{produtoBean.produtos}" var="produto"
+						rows="5">
+
+						<p:column headerText="Data de Validade"
+							sortBy="#{produto.dataCadastro}">
+							<h:outputText value="#{produto.dataCadastro}">
+								<f:convertDateTime locale="pt_BR" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{produto.descricao}" />
+						</p:column>
+
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{produto.quantidade}" />
+						</p:column>
+
+						<p:column headerText="Preço">
+							<h:outputText value="#{produto.preco}">
+								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Fabricante">
+							<h:outputText value="#{produto.fabricante.descricao}" />
+						</p:column>						
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+
+			
+		</h:body>
+	</ui:define>
+</ui:composition>

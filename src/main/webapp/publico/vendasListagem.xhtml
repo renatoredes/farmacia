@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewAction action="#{vendaBean.listar}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="corpo">
+
+		<h1>Detalhamento de Vendas</h1>
+		<h:body>
+			<p:growl id="mensagem" />
+
+			<h:form id="formListagem">
+				<p:panel header="Vendas - Detalhe">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{vendaBean.vendas}" var="venda" rows="10"
+						paginatorPosition="top">
+
+						<p:column headerText="Horário da Compra" sortBy="#{venda.horario}">
+							<h:outputText value="#{venda.horario}">
+								<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Preço Total" sortBy="#{venda.precoTotal}">
+							<h:outputText value="#{venda.precoTotal}">
+								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Cliente"
+							filterBy="#{venda.cliente.pessoa.nome}"
+							sortBy="#{venda.cliente.pessoa.nome}">
+							<h:outputText value="#{venda.cliente.pessoa.nome}" />
+						</p:column>
+
+						<p:column headerText="Funcionário"
+							filterBy="#{venda.funcionario.pessoa.nome}"
+							sortBy="#{venda.funcionario.pessoa.nome}">
+							<h:outputText value="#{venda.funcionario.pessoa.nome}" />
+						</p:column>
+					
+						<p:column headerText="Produto"
+						sortBy="#{venda.itemVendas[0].produto.descricao}"
+						filterBy="#{venda.itemVendas[0].produto.descricao}">
+						
+							<h:outputText value="#{venda.itemVendas[0].produto.descricao}" />
+						</p:column>
+						
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+
+
+		</h:body>
+
+	</ui:define>
+</ui:composition>
